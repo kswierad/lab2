@@ -1,6 +1,5 @@
 package agh.cs.lab2;
 
-import javafx.geometry.Pos;
 
 /**
  * Created by Kamil on 2017-10-16.
