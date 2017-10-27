@@ -22,6 +22,7 @@ public class Position {
         return result;
     }
 
+
     public boolean smaller(Position operand) {
         return this.x < operand.x && this.y < operand.y;
     }
