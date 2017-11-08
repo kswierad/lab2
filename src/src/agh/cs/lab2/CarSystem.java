@@ -7,21 +7,15 @@ public class CarSystem {
 
     public static void main(String args[]){
         System.out.println("System rozpoczyna działanie.");
-        CarSystem.run();
-        Car car = new Car();
-        OptionsParser parser = new OptionsParser();
-        for(MoveDirection direction : parser.parse(args)){
-            car.move(direction);
-        }
-        System.out.println(car.toString());
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        if(!map.place(new Car(map))) { System.out.println("Nie dodaje"); }
+        if(!map.place(new Car(map,3,4))) { System.out.println("Nie dodaje"); }
+
+        map.run(directions);
         System.out.print("System kończy działanie.");
 
     }
 
 
-    public static void run(){
-        System.out.println("Samochód zaczyna się poruszać.");
-
-
-    }
 }
