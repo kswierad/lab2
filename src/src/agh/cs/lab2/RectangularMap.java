@@ -30,23 +30,20 @@ public class RectangularMap implements IWorldMap{
     public boolean place(Car car) {
         if(isOccupied(car.getPosition())) return false;
         this.cars.add(car);
-        System.out.println("Dodaje auto");
         return true;
     }
 
     @Override
     public void run(MoveDirection[] directions) {
         int whichCar=0;
-        System.out.println(this.toString());
+        System.out.println(this);
         if(this.cars.size()>0) {
             for (MoveDirection direction : directions) {
-                Car newCar = new Car(this.cars.get(whichCar % this.cars.size()).getPosition(), this.cars.get(whichCar % this.cars.size()).getMapDirection());
-                newCar.move(direction);
-                if (this.canMoveTo(newCar.getPosition())) this.cars.get(whichCar % this.cars.size()).move(direction);
+                this.cars.get(whichCar % this.cars.size()).move(direction);
                 whichCar++;
             }
         }
-        System.out.println(this.toString());
+        System.out.println(this);
     }
 
     @Override

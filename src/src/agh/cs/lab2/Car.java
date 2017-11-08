@@ -20,11 +20,6 @@ public class Car {
         this.map = map;
     }
 
-    public Car(Position position, MapDirection mapDirection){
-        this.position = position;
-        this.mapDirection = mapDirection;
-    }
-
     public Car(IWorldMap map, int x, int y){
         this.position = new Position(x,y);
         this.mapDirection = MapDirection.North;
@@ -34,7 +29,6 @@ public class Car {
     public Position getPosition(){
         return this.position;
     }
-    public MapDirection getMapDirection() {return this.mapDirection;}
 
     public void move(MoveDirection direction){
         Position newPos = new Position(0,0);
@@ -65,7 +59,9 @@ public class Car {
                     newPos = new Position(newPos.x*(-1),newPos.y*(-1));
                 }
                 newPos = newPos.add(this.position);
-                if(map.canMoveTo(newPos)) this.position = newPos;
+                if(this.map.canMoveTo(newPos)) {
+                    this.position = newPos;
+                }
                 break;
         }
     }

@@ -7,5 +7,20 @@ public enum MoveDirection {
     Forward,
     Backward,
     Left,
-    Right
+    Right;
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case Forward:
+                return "f";
+            case Backward:
+                return "b";
+            case Left:
+                return "l";
+            case Right:
+                return "r";
+        }
+        return null;
+    }
 }

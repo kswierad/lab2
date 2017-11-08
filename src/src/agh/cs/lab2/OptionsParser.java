@@ -45,6 +45,7 @@ public class OptionsParser {
                     default:
                         break;
                 }
+
         }
         return parsedArgs;
     }

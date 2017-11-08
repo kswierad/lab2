@@ -24,11 +24,11 @@ public class Position {
 
 
     public boolean smaller(Position operand) {
-        return this.x < operand.x && this.y < operand.y;
+        return this.x <= operand.x && this.y <= operand.y;
     }
 
     public boolean larger(Position operand) {
-        return this.x > operand.x && this.y > operand.y;
+        return this.x >= operand.x && this.y >= operand.y;
     }
 
     public Position add(Position operand) {
