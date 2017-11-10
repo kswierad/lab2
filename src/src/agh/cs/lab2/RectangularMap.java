@@ -6,18 +6,18 @@ import java.util.List;
 /**
  * Created by student9 on 2017-10-27.
  */
-public class RectangularMap implements IWorldMap{
+public class RectangularMap extends AbstractWorldMap {
 
     private final int width;
     private final int height;
     private final Position upperCorner;
-    private final Position lowerCorner = new Position(0,0);
-    private List<Car> cars = new ArrayList<>();
+    private final Position lowerCorner = new Position(0, 0);
 
-    public RectangularMap(int width, int height){
+
+    public RectangularMap(int width, int height) {
         this.width = width;
         this.height = height;
-        this.upperCorner = new Position(width,height);
+        this.upperCorner = new Position(width, height);
     }
 
 
@@ -27,34 +27,9 @@ public class RectangularMap implements IWorldMap{
     }
 
     @Override
-    public boolean place(Car car) {
-        if(isOccupied(car.getPosition())) return false;
-        this.cars.add(car);
-        return true;
+    public String toString() {
+        return new MapVisualizer().dump(this, this.lowerCorner, this.upperCorner);
     }
-
-    @Override
-    public void run(MoveDirection[] directions) {
-        int whichCar=0;
-        System.out.println(this);
-        if(this.cars.size()>0) {
-            for (MoveDirection direction : directions) {
-                this.cars.get(whichCar % this.cars.size()).move(direction);
-                whichCar++;
-            }
-        }
-        System.out.println(this);
-    }
-
-    @Override
-    public boolean isOccupied(Position position) {
-        for(Car car : this.cars){
-            if(car.getPosition().equals(position)) return true;
-
-        }
-        return false;
-    }
-
     @Override
     public Object objectAt(Position position) {
         for(Car car : this.cars){
@@ -63,9 +38,11 @@ public class RectangularMap implements IWorldMap{
         }
         return null;
     }
-
-    @Override
-    public String toString() {
-        return new MapVisualizer().dump(this, this.lowerCorner, this.upperCorner);
-    }
 }
+
+
+
+
+
+
+

@@ -1,11 +1,10 @@
 package agh.cs.lab2;
 
-import javafx.geometry.Pos;
 
 /**
  * Created by Kamil on 2017-10-26.
  */
-public class Car {
+public class Car implements IMapElement{
     private MapDirection mapDirection;
     private Position position;
     private IWorldMap map;
@@ -70,13 +69,13 @@ public class Car {
     public String toString(){
         switch (this.mapDirection){
             case North:
-                return "N";
+                return "↑";
             case South:
-                return "S";
+                return "↓";
             case East:
-                return "E";
+                return "→";
             case West:
-                return "W";
+                return "←";
             default:
                 return null;
         }
