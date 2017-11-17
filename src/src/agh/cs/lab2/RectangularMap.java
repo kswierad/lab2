@@ -2,6 +2,8 @@ package agh.cs.lab2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by student9 on 2017-10-27.
@@ -30,13 +32,10 @@ public class RectangularMap extends AbstractWorldMap {
     public String toString() {
         return new MapVisualizer().dump(this, this.lowerCorner, this.upperCorner);
     }
+
     @Override
     public Object objectAt(Position position) {
-        for(Car car : this.cars){
-            if(car.getPosition().equals(position)) return car;
-
-        }
-        return null;
+        return this.objectMap.get(position);
     }
 }
 

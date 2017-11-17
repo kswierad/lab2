@@ -1,7 +1,9 @@
 package agh.cs.lab2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Kamil on 2017-11-08.
@@ -9,15 +11,17 @@ import java.util.List;
 public abstract class AbstractWorldMap implements IWorldMap {
 
     protected List<Car> cars = new ArrayList<>();
-
+    protected Map<Position, IMapElement> objectMap = new HashMap<>();
     @Override
     public abstract boolean canMoveTo(Position position);
 
     @Override
-    public boolean place(Car car) {
-        if(isOccupied(car.getPosition())) return false;
+    public void place(Car car) {
+        if(isOccupied(car.getPosition())) {
+            throw new IllegalArgumentException("Nie można dodać obiektu w miejsce: "+car.getPosition()+", ponieważ jest już zajęte.");
+        }
         this.cars.add(car);
-        return true;
+        this.objectMap.put(car.getPosition(),car);
     }
 
     @Override
@@ -26,7 +30,13 @@ public abstract class AbstractWorldMap implements IWorldMap {
         System.out.println(this);
         if(this.cars.size()>0) {
             for (MoveDirection direction : directions) {
-                this.cars.get(whichCar % this.cars.size()).move(direction);
+                Car localCar = this.cars.get(whichCar % this.cars.size());
+                Position oldPosition = localCar.getPosition();
+                localCar.move(direction);
+                if(!localCar.getPosition().equals(oldPosition)){
+                    this.objectMap.remove(oldPosition);
+                    this.objectMap.put(localCar.getPosition(),localCar);
+                }
                 whichCar++;
             }
         }
@@ -40,7 +50,8 @@ public abstract class AbstractWorldMap implements IWorldMap {
 
 
     @Override
-    public abstract Object objectAt(Position position);
-
+    public Object objectAt(Position position) {
+        return this.objectMap.get(position);
+    }
 
 }

@@ -1,6 +1,9 @@
 package agh.cs.lab2;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Kamil on 2017-11-08.
@@ -9,21 +12,17 @@ public class UnboundedMap extends AbstractWorldMap{
 
     public final List<HayStack> hayStacks;
 
+
+
+
     public UnboundedMap(List<HayStack> hayStacks) {
+
         this.hayStacks = hayStacks;
-    }
-    @Override
-    public Object objectAt(Position position) {
-        for(Car car : this.cars){
-            if(car.getPosition().equals(position)) return car;
-
+        for(HayStack element : hayStacks){
+            this.objectMap.put(element.getPosition(),element);
         }
-
-        for(HayStack hayStack : this.hayStacks){
-            if(hayStack.getPosition().equals(position)) return hayStack;
-        }
-        return null;
     }
+
 
     @Override
     public boolean canMoveTo(Position position) {
@@ -34,14 +33,10 @@ public class UnboundedMap extends AbstractWorldMap{
     public String toString(){
         Position lowerCorner, upperCorner;
         lowerCorner = upperCorner = cars.get(0).getPosition();
-        for (Car car : cars){
-            if(car.getPosition().smaller(lowerCorner)) lowerCorner = car.getPosition();
-            if(car.getPosition().larger(upperCorner)) upperCorner = car.getPosition();
-        }
-
-        for (HayStack hayStack : hayStacks){
-            if (hayStack.getPosition().smaller(lowerCorner)) lowerCorner = hayStack.getPosition();
-            if (hayStack.getPosition().larger(upperCorner)) upperCorner = hayStack.getPosition();
+        Collection<IMapElement> elements = this.objectMap.values();
+        for(IMapElement element : elements){
+            if(element.getPosition().smaller(lowerCorner)) lowerCorner = element.getPosition();
+            if(element.getPosition().larger(upperCorner)) upperCorner = element.getPosition();
         }
         return new MapVisualizer().dump(this, lowerCorner, upperCorner);
     }

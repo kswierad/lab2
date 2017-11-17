@@ -8,6 +8,7 @@ public class OptionsParser {
     public MoveDirection[] parse(String args[]){
         int numberOfArgs = 0;
         MoveDirection[] parsedArgs = new MoveDirection[args.length];
+
         for(String arg : args){
                 switch (arg){
                     case "forward":
@@ -43,7 +44,7 @@ public class OptionsParser {
                         numberOfArgs++;
                         break;
                     default:
-                        break;
+                        throw new IllegalArgumentException(arg+" to niepoprawna komenda");
                 }
 
         }
